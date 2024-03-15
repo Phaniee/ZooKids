@@ -7,7 +7,7 @@ import {
   Text,
   StatusBar,
   Image,
-  ScrollView,
+  Pressable,
 } from 'react-native';
 
 const TERRITORIO = [
@@ -29,19 +29,19 @@ const TERRITORIO = [
     image: require('../Assets/territorio3.png'),
   },
   {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    id: '58694a0f-3da1-471f-bd96-145571e29d74',
     title: 'Território 4',
     // Adicione a imagem para cada item
     image: require('../Assets/territorio4.png'),
   },
   {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    id: '58694a0f-3da1-471f-bd96-145571e29d42',
     title: 'Território 5',
     // Adicione a imagem para cada item
     image: require('../Assets/territorio5.png'),
   },
   {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    id: '58694a0f-3da1-471f-bd96-145571e29772',
     title: 'Território 6',
     // Adicione a imagem para cada item
     image: require('../Assets/territorio6.png'),
@@ -49,15 +49,14 @@ const TERRITORIO = [
 ];
 
 const Item = ({ title, image }) => (
-  <View style={styles.item}>
-    <Image style={styles.image} source={image} />
+  <Pressable style={styles.item} onPress={() => console.log(title)}>
+    <Image style={styles.image} source={image} resizeMode="cover" />
     <Text style={styles.title}>{title}</Text>
-  </View>
+  </Pressable>
 );
 
 const App = () => {
   return (
-    <ScrollView>
       <SafeAreaView style={styles.container}>
         <View style={styles.box}>
           <Text style={styles.titulo}>Conheça a Diversidade no ZooKids!</Text>
@@ -68,8 +67,6 @@ const App = () => {
           keyExtractor={item => item.id}
         />
       </SafeAreaView>
-    </ScrollView>
-    
   );
 };
 
@@ -91,7 +88,6 @@ const styles = StyleSheet.create({
   image: {
     width: 400, // Defina a largura da imagem conforme necessário
     height: 200, // Defina a altura da imagem conforme necessário
-    resizeMode: 'cover', // Ajuste a imagem para cobrir todo o espaço disponível
     borderRadius:20,
   },
   titulo:{
