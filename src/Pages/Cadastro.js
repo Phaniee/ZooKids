@@ -1,30 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar, StyleSheet, Text, View, Image, TextInput, Pressable, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
-import axios, { Axios } from 'axios'
-//instalação axios
-/* npm install Axios
-axios.get('endereço', 'dados', cabeçalho ) */
+import axios from 'axios';
 
 export default function Cadastro() {
   const navigation = useNavigation();
-  const [nome, setNome] = useState('Luciano')
-  const [email, setEmail] = useState('luciano1@gmail.com')
-  const [senha, setSenha] = useState('123')
-
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [confirmarSenha, setConfirmarSenha] = useState('');
+  const [senhaCoincide, setSenhaCoincide] = useState(true);
 
   const carregar = async () => {
+    if (senha !== confirmarSenha) {
+      setSenhaCoincide(false);
+      return;
+    }
+
     const dadosUser = {
-      'nome': nome,
-      'email': email,
-      'senha': senha,
+      'nomeUser': nome,
+      'emailUser': email,
+      'senhaUser': senha,
     };
 
     const axiosConfig = {
       headers: {
-/*         'Accept': 'application/json',
- */        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded'
       }
     };
 
@@ -32,11 +33,8 @@ export default function Cadastro() {
       const response = await axios.post('http://localhost/bdetec/userInsert', dadosUser, axiosConfig);
       console.log(response.data)
     } catch (error) {
-      console.error('Erro ao criar jogador1', error);
-      return false;
+      console.error('Erro ao criar usuário', error);
     }
-
-
   }
 
   return (
@@ -59,26 +57,35 @@ export default function Cadastro() {
         <TextInput
           placeholder='Insira o seu nome'
           style={styles.input}
+          onChangeText={setNome}
+          value={nome}
         />
         <Text style={styles.titulo2}>Qual é o seu e-mail?</Text>
         <TextInput
           placeholder='Insira o seu e-mail'
           style={styles.input}
+          onChangeText={setEmail}
+          value={email}
         />
         <Text style={styles.titulo2}>Digite a sua senha</Text>
         <TextInput
           placeholder='Insira a sua senha'
           style={styles.input}
+          onChangeText={setSenha}
           secureTextEntry={true}
+          value={senha}
         />
         <Text style={styles.titulo2}>Confirme a sua senha</Text>
         <TextInput
           placeholder='Confirme a sua senha'
           style={styles.input}
+          onChangeText={setConfirmarSenha}
           secureTextEntry={true}
+          value={confirmarSenha}
         />
-        <Pressable style={styles.button} onPress={() => navigation.navigate('Home')}>
-          <Text style={styles.buttonText}>Entrar</Text>
+        {!senhaCoincide && <Text style={styles.errorText}>As senhas não coincidem.</Text>}
+        <Pressable style={styles.button} onPress={carregar}>
+          <Text style={styles.buttonText}>Cadastrar</Text>
         </Pressable>
       </View>
       <StatusBar style="auto" />
@@ -134,30 +141,33 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 22,
-    textAlign: 'center',
-    fontWeight: 'bold',
+    textAlign: 'center'
   },
-  titulo: {
-    fontSize: 50,
-    fontWeight: 'bold',
-    color: '#F4CA44',
-    textShadowColor: 'rgba(0, 0, 0, 0.75)', // Cor da sombra
-    textShadowOffset: { width: 2, height: 2 }, // Deslocamento da sombra (horizontal, vertical)
-    textShadowRadius: 5, // Raio da sombra
-  },
-  titulo2: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#005022',
-    marginBottom: 5,
-    marginTop: 10,
-  },
-  texto1: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'white',
-    textAlign: 'center',
-    paddingHorizontal: 20,
-    marginBottom: 20,
-  },
-});
+    errorText: {
+      color: 'red',
+      marginTop: 5,
+    },
+    titulo: {
+      fontSize: 50,
+      fontWeight: 'bold',
+      color: '#F4CA44',
+      textShadowColor: 'rgba(0, 0, 0, 0.75)', // Cor da sombra
+      textShadowOffset: { width: 2, height: 2 }, // Deslocamento da sombra (horizontal, vertical)
+      textShadowRadius: 5, // Raio da sombra
+    },
+    titulo2: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      color: '#005022',
+      marginBottom: 5,
+      marginTop: 10,
+    },
+    texto1: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: 'white',
+      textAlign: 'center',
+      paddingHorizontal: 20,
+      marginBottom: 20,
+    },
+  });
