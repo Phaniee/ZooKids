@@ -2,8 +2,42 @@ import React from 'react';
 import { StatusBar, StyleSheet, Text, View, Image, TextInput, Pressable, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
+import axios, { Axios } from 'axios'
+//instalação axios
+/* npm install Axios
+axios.get('endereço', 'dados', cabeçalho ) */
+
 export default function Cadastro() {
   const navigation = useNavigation();
+  const [nome, setNome] = useState('Luciano')
+  const [email, setEmail] = useState('luciano1@gmail.com')
+  const [senha, setSenha] = useState('123')
+
+
+  const carregar = async () => {
+    const dadosUser = {
+      'nome': nome,
+      'email': email,
+      'senha': senha,
+    };
+
+    const axiosConfig = {
+      headers: {
+/*         'Accept': 'application/json',
+ */        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    };
+
+    try {
+      const response = await axios.post('http://localhost/bdetec/userInsert', dadosUser, axiosConfig);
+      console.log(response.data)
+    } catch (error) {
+      console.error('Erro ao criar jogador1', error);
+      return false;
+    }
+
+
+  }
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="height">
@@ -15,7 +49,7 @@ export default function Cadastro() {
           />
         </Pressable>
       </View>
-      
+
       <View style={styles.head}>
         <Text style={styles.titulo}>Cadastro</Text>
         <Text style={styles.texto1}>Faça cadastro no Zoo e usufrua de todas as funcionalidades do app.</Text>
@@ -57,27 +91,27 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#2B813F',
   },
-  caixaLogo:{
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center',
+  caixaLogo: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  logo:{
-    width:300,
-    height:200,
+  logo: {
+    width: 300,
+    height: 200,
   },
-  head:{
-    margin:10,
-    justifyContent:'space-evenly',
-    alignItems:'center',
+  head: {
+    margin: 10,
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
   },
-  conteudo:{
-    flex:2,
-    justifyContent:'space-evenly',
-    alignItems:'center',
-    backgroundColor:'#A0DF38',
-    borderTopEndRadius:50,
-    borderTopStartRadius:50,
+  conteudo: {
+    flex: 2,
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    backgroundColor: '#A0DF38',
+    borderTopEndRadius: 50,
+    borderTopStartRadius: 50,
   },
   input: {
     backgroundColor: '#FFF',
@@ -87,26 +121,26 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5,
   },
-  button:{
+  button: {
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 50,
-    marginTop:7,
-    marginBottom:5,
+    marginTop: 7,
+    marginBottom: 5,
     elevation: 3,
     backgroundColor: '#F4CA44',
   },
-  buttonText:{
+  buttonText: {
     fontSize: 22,
     textAlign: 'center',
     fontWeight: 'bold',
   },
-  titulo:{
-    fontSize:50,
-    fontWeight:'bold',
-    color:'#F4CA44',
+  titulo: {
+    fontSize: 50,
+    fontWeight: 'bold',
+    color: '#F4CA44',
     textShadowColor: 'rgba(0, 0, 0, 0.75)', // Cor da sombra
     textShadowOffset: { width: 2, height: 2 }, // Deslocamento da sombra (horizontal, vertical)
     textShadowRadius: 5, // Raio da sombra

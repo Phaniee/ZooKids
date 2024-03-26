@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Carregamento from '../Pages/Carregamento';
 import Welcome from '../Pages/Welcome';
 import Entrar from '../Pages/Entrar';
 import Cadastro from '../Pages/Cadastro';
@@ -9,6 +10,12 @@ const Stack = createNativeStackNavigator();
 export default function Routes() {
     return (
         <Stack.Navigator>
+            <Stack.Screen
+                name="Carregamento"
+                component={Carregamento}
+                options={{ headerShown: false }}
+
+            />
             <Stack.Screen
                 name="Welcome"
                 component={Welcome}
