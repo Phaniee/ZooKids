@@ -30,8 +30,10 @@ export default function Cadastro() {
     };
 
     try {
-      const response = await axios.post('http://localhost/bdetec/userInsert', dadosUser, axiosConfig);
+      const response = await axios.post('http://localhost/bdzookids/userInsert', dadosUser, axiosConfig);
       console.log(response.data)
+      // Navegar para a tela de login após o cadastro bem-sucedido
+      navigation.navigate('Entrar');
     } catch (error) {
       console.error('Erro ao criar usuário', error);
     }
@@ -141,7 +143,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 22,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontWeight:'bold'
   },
     errorText: {
       color: 'red',

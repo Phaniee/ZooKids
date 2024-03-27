@@ -2,21 +2,38 @@ import React from 'react';
 import { StyleSheet, Text, View, Pressable, TextInput, Alert,Image } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 export default function Entrar() {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !senha) {
       Alert.alert('Erro', 'Por favor, preencha todos os campos.');
       return;
-    } else if (email.toLowerCase() === "admin" && senha === "123") {
-      console.log('Login bem-sucedido');
-      navigation.navigate('Home');
-    } else {
-      Alert.alert('Erro', 'Credenciais inválidas');
+    }
+    const dadosLoginUser = {
+      'emailUser': email,
+      'senhaUser': senha,
+    };
+    try {
+      // Fazer uma requisição para a API para verificar as credenciais
+      const response = await axios.post('http://localhost/bdzookids/userLogin',dadosLoginUser, {
+       
+      });
+
+      // Verificar o resultado retornado pela API
+      if (response.data && response.data.success) {
+        console.log('Login bem-sucedido');
+        navigation.navigate('Home');
+      } else {
+        Alert.alert('Erro', 'Credenciais inválidas');
+      }
+    } catch (error) {
+      console.error('Erro ao fazer login', error);
+      Alert.alert('Erro', 'Ocorreu um erro ao fazer login.');
     }
   };
 
@@ -53,7 +70,9 @@ export default function Entrar() {
             onChangeText={setSenha}
           />
         </View>
-        <Text style={styles.registerText}>Problemas para fazer login?</Text>
+        <Pressable onPress={() => navigation.navigate('Cadastro')}>
+          <Text style={styles.registerText}>Não tem conta? Cadastre-se!</Text>
+        </Pressable>
       </View>
       <View style={styles.box}>
         <Pressable style={styles.button} onPress={handleLogin}>
