@@ -26,9 +26,8 @@ export default function Welcome() {
       <View style={styles.containerTermo}>
         <Text style={styles.termo}>
           Ao clicar em Criar Conta ou Entrar, você concorda com os nossos Termos. Saiba como processamos
-          os seus dados em nossa
-          <Pressable onPress={openPrivacyPolicy}>
-            <Text style={styles.linkText}> Política de Privacidade</Text>
+          os seus dados em nossa <Pressable onPress={openPrivacyPolicy}>
+            <Text style={styles.linkText}>Política de Privacidade</Text>
           </Pressable>
           {' '}e <Pressable onPress={openCookies}>
             <Text style={styles.linkText}>Política de Cookies</Text>
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
   termo: {
     textAlign: 'justify',
     color: 'white',
-    fontSize: 12,
+    fontSize: 15,
     fontWeight: 'bold',
   },
   linkText: {

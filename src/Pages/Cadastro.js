@@ -43,10 +43,6 @@ export default function Cadastro() {
     <KeyboardAvoidingView style={styles.container} behavior="height">
       <View style={styles.caixaLogo}>
         <Pressable onPress={() => navigation.navigate('Welcome')} >
-          <Image
-            style={styles.logo}
-            source={require('../Assets/logo.png')}
-          />
         </Pressable>
       </View>
 
@@ -55,21 +51,18 @@ export default function Cadastro() {
         <Text style={styles.texto1}>Faça cadastro no Zoo e usufrua de todas as funcionalidades do app.</Text>
       </View>
       <View style={styles.conteudo}>
-        <Text style={styles.titulo2}>Qual é o seu nome?</Text>
         <TextInput
           placeholder='Insira o seu nome'
           style={styles.input}
           onChangeText={setNome}
           value={nome}
         />
-        <Text style={styles.titulo2}>Qual é o seu e-mail?</Text>
         <TextInput
           placeholder='Insira o seu e-mail'
           style={styles.input}
           onChangeText={setEmail}
           value={email}
         />
-        <Text style={styles.titulo2}>Digite a sua senha</Text>
         <TextInput
           placeholder='Insira a sua senha'
           style={styles.input}
@@ -77,7 +70,6 @@ export default function Cadastro() {
           secureTextEntry={true}
           value={senha}
         />
-        <Text style={styles.titulo2}>Confirme a sua senha</Text>
         <TextInput
           placeholder='Confirme a sua senha'
           style={styles.input}
@@ -86,9 +78,12 @@ export default function Cadastro() {
           value={confirmarSenha}
         />
         {!senhaCoincide && <Text style={styles.errorText}>As senhas não coincidem.</Text>}
+        <View style={styles.box}>
         <Pressable style={styles.button} onPress={carregar}>
           <Text style={styles.buttonText}>Cadastrar</Text>
         </Pressable>
+        </View>
+        
       </View>
       <StatusBar style="auto" />
     </KeyboardAvoidingView>
@@ -101,7 +96,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#2B813F',
   },
   caixaLogo: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -110,25 +104,27 @@ const styles = StyleSheet.create({
     height: 200,
   },
   head: {
-    margin: 10,
+    paddingTop: 50,
+    paddingLeft: 20,
     justifyContent: 'space-evenly',
-    alignItems: 'center',
-  },
-  conteudo: {
-    flex: 2,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    backgroundColor: '#A0DF38',
-    borderTopEndRadius: 50,
-    borderTopStartRadius: 50,
   },
   input: {
-    backgroundColor: '#FFF',
-    marginTop: 13,
-    width: 250,
-    height: 35,
-    borderRadius: 5,
-    padding: 5,
+    marginBottom: 30,
+    borderBottomWidth: 1,
+    borderColor: 'white',
+    margin: 20,
+    height: 40,
+    fontSize: 16,
+    color: 'white',
+    flex: 1,
+  },
+  conteudo:{
+    paddingBottom: 100,
+  },
+  box: {
+    width: '80%',
+    paddingTop: 30,
+    paddingLeft: 85,
   },
   button: {
     alignItems: 'center',
@@ -167,10 +163,9 @@ const styles = StyleSheet.create({
     },
     texto1: {
       fontSize: 16,
-      fontWeight: 'bold',
       color: 'white',
-      textAlign: 'center',
-      paddingHorizontal: 20,
-      marginBottom: 20,
+      textAlign: 'left',
+      paddingBottom: 20,
+
     },
   });

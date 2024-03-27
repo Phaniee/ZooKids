@@ -10,7 +10,7 @@ export default function Carregamento() {
         const timer = setTimeout(() => { //parte que controla o carregamento 
             setLoading(false);
             navigation.navigate('Welcome'); // Navega para a página "Welcome"
-        }, 5000); // 5000 milissegundos = 5 segundos
+        }, 1000); // milissegundos = segundos
 
         return () => clearTimeout(timer);
     }, []);
